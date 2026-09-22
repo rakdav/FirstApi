@@ -1,11 +1,11 @@
 using FirstApi.Models;
 
-List<Person> users = new List<Person>
-{
-    new(){Id=Guid.NewGuid().ToString(),Name="Tom",Age=40},
-    new(){Id=Guid.NewGuid().ToString(),Name="Bob",Age=19},
-    new(){Id=Guid.NewGuid().ToString(),Name="Sam",Age=26},
-};
+//List<Person> users = new List<Person>
+//{
+//    new(){Id=Guid.NewGuid().ToString(),Name="Tom",Age=40},
+//    new(){Id=Guid.NewGuid().ToString(),Name="Bob",Age=19},
+//    new(){Id=Guid.NewGuid().ToString(),Name="Sam",Age=26},
+//};
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSwaggerGen();
 var app = builder.Build();

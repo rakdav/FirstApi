@@ -2,22 +2,17 @@
 
 namespace FirstApi.Services
 {
-    public class PersonService : IService<Person>
+    public class PersonService : AbstractionService, IService<Person>
     {
         private List<Person> People;
         public PersonService()
         {
             People = new List<Person>();
         }
-        public async Task Create(Person entity)
+        public PersonService(List<Person> list)
         {
-            People.Add(entity);
-        }
-
-        public async Task Delete(string id)
-        {
-            Person person = People.FirstOrDefault(p => p.Id == id)!;
-            People.Remove(person);
+            People = new List<Person>();
+            People!.AddRange(list);
         }
 
         public async Task<IEnumerable<Person>> GetAllAsync()
@@ -30,11 +25,34 @@ namespace FirstApi.Services
             return  People.FirstOrDefault(p=>p.Id == id)!;
         }
 
-        public async Task Update(Person entity)
+        bool IService<Person>.Create(Person entity)
         {
-            Person person= People.FirstOrDefault(p => p.Id == entity.Id)!;
-            person.Name = entity.Name;
-            person.Age= entity.Age;
+            bool result = DoAction(delegate ()
+            {
+                People.Add(entity);
+            });
+            return result;
+        }
+
+        bool IService<Person>.Delete(string id)
+        {
+            bool result = DoAction(delegate ()
+            {
+                Person person= People.FirstOrDefault(p=>p.Id==id)!;
+                People.Remove(person);
+            });
+            return result;
+        }
+
+        bool IService<Person>.Update(Person entity)
+        {
+            bool result = DoAction(delegate ()
+            {
+                Person person = People.FirstOrDefault(p => p.Id == entity.Id)!;
+                person.Name = entity.Name;
+                person.Age= entity.Age;
+            });
+            return result;
         }
     }
 }

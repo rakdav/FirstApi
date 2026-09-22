@@ -4,8 +4,8 @@
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetById(string id);
-        Task Create(T entity);
-        Task Update(T entity);
-        Task Delete(string id);
+        bool Create(T entity);
+        bool Update(T entity);
+        bool Delete(string id);
     }
 }
