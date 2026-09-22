@@ -1,4 +1,5 @@
 using FirstApi.Models;
+using FirstApi.Services;
 
 //List<Person> users = new List<Person>
 //{
@@ -8,6 +9,9 @@ using FirstApi.Models;
 //};
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<IService<Person>, PersonService>();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
@@ -16,6 +20,9 @@ if (app.Environment.IsDevelopment())
 }
 app.UseDefaultFiles();
 app.UseStaticFiles();
+app.UseRouting();
+app.MapControllers();
+app.UseHttpsRedirection();
 //#region GET
 ////api/users
 //app.MapGet("/api/users", () => users);

@@ -25,16 +25,17 @@ namespace FirstApi.Services
             return  People.FirstOrDefault(p=>p.Id == id)!;
         }
 
-        bool IService<Person>.Create(Person entity)
+        public bool Create(Person entity)
         {
             bool result = DoAction(delegate ()
             {
+                entity.Id= Guid.NewGuid().ToString();
                 People.Add(entity);
             });
             return result;
         }
 
-        bool IService<Person>.Delete(string id)
+        public bool Delete(string id)
         {
             bool result = DoAction(delegate ()
             {
@@ -44,7 +45,7 @@ namespace FirstApi.Services
             return result;
         }
 
-        bool IService<Person>.Update(Person entity)
+        public bool Update(Person entity)
         {
             bool result = DoAction(delegate ()
             {
